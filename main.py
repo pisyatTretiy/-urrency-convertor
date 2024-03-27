@@ -3,6 +3,7 @@ import requests
 
 app = Flask(__name__)
 
+# валюты
 currency_symbols = {
     'USD': '$',  
     'EUR': '€',  
@@ -12,7 +13,7 @@ currency_symbols = {
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
-
+# nav
 @app.route('/convert', methods=['POST'])
 def convert():
     amount = request.form.get('amount', type=float)
@@ -28,7 +29,7 @@ def convert():
         return render_template('index.html', converted_amount=result)
     else:
         return render_template('index.html', error='Некорректная пара валют')
-
+# func convert
 def convert_currency(amount, from_currency, to_currency, rates):
     if from_currency == to_currency:
         return amount, currency_symbols.get(to_currency, '')
